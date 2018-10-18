@@ -1,0 +1,13 @@
+ChannelNumber	12	uint32	@(x) sum(bitget(uint32(x), 1 : 4))
+AcquisitionMode	16	uint8	
+TimeSeriesCount	17	uint32	
+PositionSeriesCount	21	uint32	
+SampleFrequency	25	double	
+AcquisitionClockType	33	uint8	
+ClockFrequency	34	double	
+SampleTime	42	double	
+BytesPerDatum	50	uint8	@(x) 2 * (1 + uint8(x))
+MacroTimeOffset	51	uint64	
+MicroTimeOffset	60	uint64	
+MicroTimeRange	76	single	
+MaxMicroTimeResolution	80	uint32	
