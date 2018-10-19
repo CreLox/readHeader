@@ -25,7 +25,7 @@ function FileHeaderStruct = readHeader(FormatExplanationTable, FilePath)
     % if FilePath is not supplied, file seletion window will pop up to
     % allow user to select the file
     if ~exist('FilePath', 'var') || isempty(FilePath)
-        [Filename, Path] = uigetfile;
+        [Filename, Path] = uigetfile('*.*');
         FilePath = strcat(Path, Filename);
     end
     
