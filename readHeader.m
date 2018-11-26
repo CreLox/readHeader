@@ -1,5 +1,7 @@
-% FileHeaderStruct = readHeader(FormatExplanationTable, FilePath(OPTIONAL))
-function FileHeaderStruct = readHeader(FormatExplanationTable, FilePath)
+% FileHeaderStruct = readHeader(FormatExplanationTable, FilePath(OPTIONAL),
+% DefaultFileExtension(OPTIONAL))
+function FileHeaderStruct = readHeader(FormatExplanationTable, FilePath, ...
+    DefaultFileExtension)
     %% Columns in FormatExplanationTable (each row is for one property)
     % This column stores the name of a property.
     PropertyNameIdx      = 1;
@@ -26,7 +28,11 @@ function FileHeaderStruct = readHeader(FormatExplanationTable, FilePath)
     % if FilePath is not supplied, a file seletion window will pop up to
     % allow user to select the file to be read.
     if ~exist('FilePath', 'var') || isempty(FilePath)
-        [Filename, Path] = uigetfile('*.*');
+        if ~exist('DefaultFileExtension', 'var') || isempty(DefaultFileExtension)
+            [Filename, Path] = uigetfile('*.*');
+        else
+            [Filename, Path] = uigetfile(DefaultFileExtension);
+        end
         FilePath = strcat(Path, Filename);
     end
     
@@ -48,5 +54,6 @@ function FileHeaderStruct = readHeader(FormatExplanationTable, FilePath)
         FileHeaderStruct.(FormatExplanationTable{i, PropertyNameIdx}) = ...
             Translate(fread(FID, 1, FormatExplanationTable{i, TypeIdx}));
     end
+    FileHeaderStruct.FilePath = FilePath;
     fclose(FID);
 end
