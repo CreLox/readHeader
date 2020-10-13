@@ -45,7 +45,8 @@ function FileHeaderStruct = readHeader(FormatExplanationTable, FilePath, ...
             fseek(FID, FormatExplanationTable{i, StartingByteIdx}, 'bof');
         end
         if (size(FormatExplanationTable, 2) == 3) || ...
-                strcmp(FormatExplanationTable{i, TranslationMethodIdx}, "")
+                strcmp(FormatExplanationTable{i, TranslationMethodIdx}, "") || ...
+                ismissing(FormatExplanationTable{i, TranslationMethodIdx})
             % If TranslationMethod is not supplied, type coercion is the default.
             Translate = str2func(FormatExplanationTable{i, TypeIdx});
         else
